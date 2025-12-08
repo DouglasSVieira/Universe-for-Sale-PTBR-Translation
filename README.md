@@ -1,6 +1,6 @@
 # 🪐 Tradução PT-BR: Universe for Sale
 
-**Status:** EM ANDAMENTO (Em tradução) | **Última Atualização:** 12/08/2025
+**Status:** EM ANDAMENTO (Em tradução) | **Última Atualização:** 08/12/2025
 
 ## 📝 Sobre o Projeto
 
