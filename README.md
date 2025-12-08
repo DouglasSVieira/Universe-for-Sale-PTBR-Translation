@@ -11,10 +11,10 @@ Este projeto é uma iniciativa de fã para traduzir o jogo de aventura narrativa
 | Etapa | Status | Detalhes |
 | :--- | :--- | :--- |
 | Extração de Texto | ✅ COMPLETA | Arquivos .json localizados e convertidos para planilha. |
-| **Tradução** | ✅ CONCLUÍDA | | Tradução de 100% das 16.852 strings de texto.
-| Revisão (QC) | ⏳ EM TESTE | |  Verificação de contexto, coerência e adequação à caixa de texto no jogo.
-| Teste Técnico | ⏳ EM TESTE | | Teste de estabilidade e reintrodução dos arquivos JSON.
-| Criação do Patch | ❌ PENDENTE | | Será iniciada após a conclusão dos testes (QC).
+| **Tradução** | ✅ CONCLUÍDA | Tradução de 100% das 16.852 strings de texto. | 
+| Revisão (QC) | ⏳ EM TESTE | Verificação de contexto, coerência e adequação à caixa de texto no jogo. |  
+| Teste Técnico | ⏳ EM TESTE | Teste de estabilidade e reintrodução dos arquivos JSON. | 
+| Criação do Patch | ❌ PENDENTE | Será iniciada após a conclusão dos testes (QC). | 
 
 ## 📦 Arquivos de Tradução
 
