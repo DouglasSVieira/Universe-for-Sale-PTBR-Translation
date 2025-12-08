@@ -11,22 +11,20 @@ Este projeto é uma iniciativa de fã para traduzir o jogo de aventura narrativa
 | Etapa | Status | Detalhes |
 | :--- | :--- | :--- |
 | Extração de Texto | ✅ COMPLETA | Arquivos .json localizados e convertidos para planilha. |
-| **Tradução** | ⏳ INICIADA | |
-| Revisão (QC) | ❌ PENDENTE | |
-| Teste Técnico | ❌ PENDENTE | |
-| Criação do Patch | ❌ PENDENTE | |
+| **Tradução** | ✅ CONCLUÍDA | | Tradução de 100% das 16.852 strings de texto.
+| Revisão (QC) | ⏳ EM TESTE | |  Verificação de contexto, coerência e adequação à caixa de texto no jogo.
+| Teste Técnico | ⏳ EM TESTE | | Teste de estabilidade e reintrodução dos arquivos JSON.
+| Criação do Patch | ❌ PENDENTE | | Será iniciada após a conclusão dos testes (QC).
 
 ## 📦 Arquivos de Tradução
 
 O trabalho de tradução é gerenciado na pasta `Translation/`.
 
-* `Translation/dialogs.xlsx` ou `Translation/data.csv`: Arquivo principal contendo as strings originais e a coluna para a tradução em PT-BR.
-
 ## 👥 Créditos
 
 ### 🇧🇷 Projeto de Tradução e Modding
 * **Liderança e Tradução:** Cavalhero
-* **Ferramentas Utilizadas:** NSIS (Nullsoft Scriptable Install System)
+* **Ferramentas Utilizadas:** NSIS (Nullsoft Scriptable Install System), Python 3, Git / GitHub, LibreOffice Calc / Google Sheets, Google Translate
 
 ### 🇮🇹 Jogo Original
 * **Desenvolvedora:** Tmesis Studio
