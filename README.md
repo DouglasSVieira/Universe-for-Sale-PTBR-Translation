@@ -23,7 +23,7 @@ O trabalho de tradução é gerenciado na pasta `Translation/`.
 ## 👥 Créditos
 
 ### 🇧🇷 Projeto de Tradução e Modding
-* **Liderança e Tradução:** Cavalhero
+* **Liderança e Tradução:** DouglasSVieira
 * **Ferramentas Utilizadas:** NSIS (Nullsoft Scriptable Install System), Python 3, Git / GitHub, LibreOffice Calc / Google Sheets, Google Translate
 
 ### 🇮🇹 Jogo Original
