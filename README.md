@@ -28,7 +28,7 @@ O trabalho de tradução é gerenciado na pasta `Translation/`.
 
 ### 🇮🇹 Jogo Original
 * **Desenvolvedora:** Tmesis Studio
-* **Publicadora:**  A Ser Confirmada
+* **Publicadora:**  Tmesis Studio
 
 ## ⚠️ Aviso Legal
 
