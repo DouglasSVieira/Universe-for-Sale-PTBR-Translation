@@ -1,0 +1,15 @@
+# Ignorar arquivos pesados e pastas originais
+Nova pasta/
+Source/
+Pack/
+Output/
+*.json
+!dlg_choose_es.json
+!dlg_dialoghi_es.json
+*.csv
+!TRABALHO_BASE_ESPANHOL.csv
+scripts/
+Output/
+Pack/
+Source/
+"Nova pasta"/
