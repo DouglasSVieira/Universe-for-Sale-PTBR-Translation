@@ -10,7 +10,7 @@ Este projeto é uma iniciativa de fã para traduzir o jogo de aventura narrativa
 
 | Etapa | Status | Detalhes |
 | :--- | :--- | :--- |
-| Extração de Texto | ✅ COMPLETA | Diálogos e arquivos de sistema (data.json) extraídos. |
+| Extração de Texto | ✅ COMPLETA | Diálogos e arquivos de sistema (data.json/data_fix.json e dlg_choose_es.json/dlg_dialoghi_es.json) extraídos. |
 | **Tradução** | ⏳ EM ANDAMENTO | Diálogos 100% / Interações de cenário em tradução.. | 
 | Revisão (QC) | ⏳ EM TESTE | Revisão fina para otimizar o espaço em tela e a fluidez das gírias. |  
 | Teste Técnico | ✅ COMPLETO | Sistema de duas planilhas operando sem conflitos. |
