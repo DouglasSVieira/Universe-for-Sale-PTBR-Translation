@@ -1,50 +1,76 @@
 import json
 import pandas as pd
 import os
+import re
 
-# Certifique-se de que os nomes dos arquivos estão exatamente assim na pasta
-arquivos_es = ['dlg_choose_es.json', 'dlg_dialoghi_es.json']
-nome_saida = 'TRABALHO_BASE_ESPANHOL.csv'
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-def extrair_dados(caminho):
-    with open(caminho, 'r', encoding='utf-8') as f:
-        dados_json = json.load(f)
-    
-    lista_final = []
-    
-    def recursivo(obj, caminho_id):
-        if isinstance(obj, str):
-            # Filtra apenas diálogos reais (ignora códigos técnicos)
-            if len(obj) > 1 and not obj.startswith("dlg_"):
-                lista_final.append({
-                    'File_ID': f"{os.path.basename(caminho)} {caminho_id}",
-                    'Texto_Espanhol': obj.replace('\n', ' ').replace('\r', ' '),
-                    'Traducao_PTBR': '' # Espaço para você traduzir
-                })
-        elif isinstance(obj, dict):
-            for k, v in obj.items():
-                recursivo(v, f"{caminho_id}['{k}']" if caminho_id else k)
-        elif isinstance(obj, list):
-            for i, item in enumerate(obj):
-                recursivo(item, f"{caminho_id}[{i}]")
+arquivos_para_importar = [
+    'Translation/dlg_choose_es.json',
+    'Translation/dlg_dialoghi_es.json',
+    'Translation/data.json',
+    'Translation/data_fix.json'
+]
 
-    # Começa a extração pela chave 'data' do Construct 3
-    recursivo(dados_json.get('data', {}), 'data')
-    return lista_final
+planilha_nome = 'TRABALHO_BASE_ESPANHOL.csv'
 
-todos_dados = []
-for arq in arquivos_es:
-    if os.path.exists(arq):
-        print(f"Lendo {arq}...")
-        todos_dados.extend(extrair_dados(arq))
+def eh_lixo_tecnico(texto):
+    """Identifica se a string é apenas código (ex: 'anim_idle', '0.5', 'true')"""
+    if not isinstance(texto, str) or len(texto.strip()) < 2:
+        return True
+    # Ignora se for apenas números e pontos (coordenadas)
+    if re.match(r'^[0-9\.\-\, ]+$', texto):
+        return True
+    # Ignora nomes internos de objetos comuns no motor
+    if texto.startswith(('obj_', 'spr_', 'bg_', 'snd_', 'vid_', 'layer_')):
+        return True
+    return False
+
+def executar_importacao_final():
+    # 1. Tenta resgatar o que você já traduziu
+    df_antigo = pd.DataFrame()
+    if os.path.exists(planilha_nome):
+        print(f"📖 Recuperando traduções de {planilha_nome}...")
+        df_antigo = pd.read_csv(planilha_nome, encoding='utf-8-sig')
+        # Remove duplicatas e linhas vazias para um merge limpo
+        df_antigo = df_antigo[['File_ID', 'Traducao_PTBR']].dropna(subset=['Traducao_PTBR'])
+        df_antigo = df_antigo.drop_duplicates(subset=['File_ID'])
+
+    # 2. Varre os arquivos em busca de textos reais
+    dados_jsons = []
+    for nome_arquivo in arquivos_para_importar:
+        if os.path.exists(nome_arquivo):
+            print(f"📦 Extraindo diálogos de: {nome_arquivo}...")
+            with open(nome_arquivo, 'r', encoding='utf-8') as f:
+                json_data = json.load(f)
+            
+            if 'data' in json_data:
+                for i, bloco in enumerate(json_data['data']):
+                    if isinstance(bloco, list):
+                        for j, texto in enumerate(bloco):
+                            # Se for texto e não for código puro, nós queremos
+                            if isinstance(texto, str) and not eh_lixo_tecnico(texto):
+                                file_id = f"{os.path.basename(nome_arquivo)}[{i}][{j}]"
+                                dados_jsons.append({
+                                    'File_ID': file_id,
+                                    'Texto_Original_ES': texto
+                                })
+
+    # 3. Une os dados novos com o seu trabalho anterior
+    if dados_jsons:
+        df_novo = pd.DataFrame(dados_jsons)
+        if not df_antigo.empty:
+            # O Merge 'left' garante que o Texto_Original_ES novo receba a Traducao_PTBR antiga
+            df_final = pd.merge(df_novo, df_antigo, on='File_ID', how='left').fillna("")
+        else:
+            df_final = df_novo
+            df_final['Traducao_PTBR'] = ""
+
+        df_final.to_csv(planilha_nome, index=False, encoding='utf-8-sig')
+        print(f"✅ Sucesso! Planilha reconstruída com {len(df_final)} linhas.")
+        print(f"📌 Busque por 'echar un vistazo' — ela deve estar no final da lista.")
     else:
-        print(f"⚠️ Atenção: Arquivo '{arq}' não encontrado na pasta!")
+        print("❌ Nenhum texto foi detectado. Verifique se os arquivos estão na pasta Translation/.")
 
-if todos_dados:
-    df = pd.DataFrame(todos_dados)
-    # Salva com PONTO E VÍRGULA (;) para o Excel abrir as colunas perfeitamente
-    df.to_csv(nome_saida, sep=';', index=False, encoding='utf-8-sig')
-    print(f"\n✅ SUCESSO! Planilha '{nome_saida}' gerada com {len(df)} linhas.")
-    print("Agora você pode abrir no Excel e começar a traduzir.")
-else:
-    print("\n❌ Nenhuma linha extraída. Verifique se os arquivos JSON estão na pasta.")
+if __name__ == "__main__":
+    executar_importacao_final()
